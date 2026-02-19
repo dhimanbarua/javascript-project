@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <title>Vanilla JS steps</title>
+  </head>
+  <body>
+    <div class="steps">
+      <div class="numbers">
+        <div class="step-1">1</div>
+        <div class="step-2">2</div>
+        <div class="step-3">3</div>
+      </div>
+
+        <p class="message"></p>
+
+        <div class="buttons">
+            <button class="previous">Previous</button>
+            <button class="next">Next</button>
+        </div>
+    </div>
+
+        <script>
+            const messages = [
+                'Learn React ⚛️',
+                'Apply for jobs 💼',
+                'Invest your new income 🤑',
+            ];
+
+            step = 1;
+
+            // Selecting Dom Elements
+            stepOne     = document.querySelector('.step-1');
+            stepTwo     = document.querySelector('.step-2');
+            stepThree   = document.querySelector('.step-3');
+            message     = document.querySelector('.message');
+            btnPrevious = document.querySelector('.previous');
+            btnNext     = document.querySelector('.next');
+
+
+            const updateBtnValues = function(){
+
+                message.textContent = `Step ${step}: ${messages[step - 1]}`;
+
+                
+                
+                if(step >= 1) stepOne.classList.add('active');
+                else stepOne.classList.remove('active');
+
+                if(step >= 2) stepTwo.classList.add('active');
+                else stepTwo.classList.remove('active');
+
+                if(step >= 3) stepThree.classList.add('active');
+                else stepThree.classList.remove('active');
+            };
+
+            // Initial setup
+            updateBtnValues();
+
+            btnPrevious.addEventListener('click', function(){
+                console.log('Previous');
+                if(step > 1) step -= 1;
+                updateBtnValues();
+            });
+
+            btnNext.addEventListener('click', function(){
+                console.log('Next');
+                if(step < 3 ) step += 1;
+                updateBtnValues();
+            });
+
+        </script>
+    </body>
+</html>
