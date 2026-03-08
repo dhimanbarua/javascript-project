@@ -1,4 +1,4 @@
-
+"use strict";
 // #Function Declaritions
     // function calcAge1(birthYear) {
 
@@ -163,7 +163,24 @@
 // Default values
     // const [p =1, q =1, r =1] = [8, 9]
 // console.log(p, q, r);
-    
+
+
+const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
+const openingHours = {
+  [days[3]]: {
+      open: 12,
+      close: 22,
+  },
+  [days[4]]: {
+      open: 11,
+      close: 23,
+  },
+  [days[5]]: {
+      open: 0,
+      close: 24,
+  }
+}
 
 // #Destructuring Objects
 
@@ -177,31 +194,58 @@
         starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
         
         mainMenu: ['Pizza', 'Pesta', 'Risotto'],
+        
+        //ES6 enhanced object literals
+        openingHours,
 
-        openingHours: {
-            thu: {
-                open: 12,
-                close: 22,
-            },
-            fri: {
-                open: 11,
-                close: 23,
-            },
-            sat: {
-                open: 0,
-                close: 24,
-            }
-        },
-
-        order: function (starterIndex, mainIndex) {
+        order(starterIndex, mainIndex) {
             return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]]
         },
 
-        orderPizza: function (mainIngredient, ...otherIngredients) {
+        orderPizza(mainIngredient, ...otherIngredients) {
             console.log(mainIngredient);
             console.log(otherIngredients);
         }
-    };
+};
+
+//Property keys
+for (const day of Object.keys(openingHours)){
+ console.log(day);
+}
+// Property Values
+const objectValues = Object.values(openingHours);
+console.log(objectValues);
+
+// Entire object
+const entires = Object.entries(openingHours);
+
+for (const [key, {open, close}] of entires){
+  console.log(`On ${key} we open at ${open} and close at ${close}`);
+}
+
+// With optional chaining
+//console.log(restaurant.openingHours.mon?.open);
+
+for (const day of days){
+  //console.log(day);
+  restaurant.openingHours[day]
+  //openingHours.mon
+}
+// Arrays
+
+// const users = [{ name: 'Jonas', email: 'hello@jonas.io' }]
+const users = []
+
+console.log(users[0]?.name ?? 'User array empty');
+
+    
+// const menu = [...restaurant.starterMenu, ...restaurant.mainMenu]
+
+// //for (const item of menu) console.log(item);
+// for (const [i, el] of menu.entries()) {
+//   console.log(`${i + 1}: ${el}`);
+// } 
+///console.log([...menu.entries()]);
     
 // const { name, openingHours, categories } = restaurant;
 // console.log(name, openingHours, categories);
@@ -380,3 +424,81 @@ console.log(firstGenre, secondGenre, otherGenres);
 const newGenres = [...genres, 'epic fantasy'];
 console.log(newGenres);
 
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+]);
+
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+const commonFood = italianFoods.intersection(mexicanFoods);
+console.log(commonFood);
+console.log([...commonFood]);
+
+const italianMexicanFusion = italianFoods.union(mexicanFoods);
+console.log(italianMexicanFusion);
+console.log([...new Set([...italianFoods, ...mexicanFoods])]);
+
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+console.log('Unique Italian Foods: ', uniqueItalianFoods);
+
+const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+console.log('Unique Mexican Foods: ', uniqueMexicanFoods);
+
+const uniqueItalianAndMexicanFoods = italianFoods.symmetricDifference(mexicanFoods);
+console.log('Symmetric Difference: ', uniqueItalianAndMexicanFoods);
+console.log(italianFoods.isDisjointFrom(mexicanFoods));
+
+const italian = [
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+];
+
+const mexican = [
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+];
+
+const uniqueData = [...new Set([...italian, ...mexican])];
+console.log(uniqueData);
+for (const data of uniqueData) console.log(`Unique Data: ${data}`);
+
+const commonData = italian.filter(item => mexican.includes(item));
+for (const data of commonData) console.log(`Common Data: ${data}`);
+
+            //Quiz App 👍
+const question = new Map([
+  ['question', 'What is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Correct'],
+  [false, 'Try again'],
+]);
+
+          console.log(question);
+          console.log(question.get('question'));
+          for (const [key, value] of question ) {
+            if( typeof key === 'number') console.log(`Answer ${key}: ${value}`)
+          }
+          
